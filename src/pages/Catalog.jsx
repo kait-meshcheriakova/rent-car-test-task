@@ -1,10 +1,12 @@
 import { Filter } from 'components/Filters/Filter';
+import { CarList } from 'components/CarList';
 const CatalogPage = () => {
   return (
-    <div>
+    <>
       FavoritePage
       <Filter />
-    </div>
+      <CarList />
+    </>
   );
 };
 export default CatalogPage;
