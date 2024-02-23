@@ -1,32 +1,42 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Catalog from '../pages/Catalog';
-import Favorite from '../pages/Favorite';
-import { Container, Header, Logo, Link } from './App.styled';
+import React, { Suspense, lazy } from 'react';
+import { Loader } from './Loader';
+import Layout from 'SharedLayout/SharedLayout';
 
+const Home = lazy(() => import('../pages/Home'));
+const Catalog = lazy(() => import('../pages/Catalog'));
+const Favorite = lazy(() => import('../pages/Favorite'));
 export const App = () => {
   return (
-    <Container>
-      <Header>
-        <Logo>
-          <span role="img" aria-label="computer icon">
-            💻
-          </span>{' '}
-          Rental Car
-        </Logo>
-        <nav>
-          <Link to="/" end>
-            Home
-          </Link>
-          <Link to="/catalog">Catalog</Link>
-          <Link to="/favorites">Favorite</Link>
-        </nav>
-      </Header>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/favorites" element={<Favorite />} />?
-      </Routes>
-    </Container>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route
+          index
+          element={
+            <Suspense fallback={<Loader />}>
+              <Home />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/catalog"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Catalog />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <Suspense fallback={<Loader />}>
+              <Favorite />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<Home />} />
+      </Route>
+    </Routes>
   );
 };

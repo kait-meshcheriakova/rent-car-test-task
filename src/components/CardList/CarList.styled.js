@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const CarsList = styled.ul`
   margin-top: 50px;
@@ -133,4 +133,17 @@ export const LoadMoreButton = styled.button`
   &:hover {
     background-color: #0b44cd;
   }
+`;
+export const SvgHeart = styled.svg`
+  stroke: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  cursor: pointer;
+
+  ${({ isFavorite }) =>
+    isFavorite &&
+    css`
+      fill: blue;
+    `}
 `;

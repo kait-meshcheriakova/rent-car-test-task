@@ -1,9 +1,8 @@
 import { Filter } from 'components/Filters/Filter';
-import { CarList } from 'components/CarList';
+import { CarList } from 'components/CardList/CarList';
 const CatalogPage = () => {
   return (
     <>
-      FavoritePage
       <Filter />
       <CarList />
     </>

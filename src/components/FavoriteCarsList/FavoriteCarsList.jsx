@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { SharedModal } from './Modal/Modal';
-import { getCars } from 'Api';
-import heart from './img/heart.svg';
+import { SharedModal } from '../Modal/Modal';
+import { CloseModalBtn } from '../Modal/Modal.styled';
+import { addToFavorites } from '../../redux/carSlice';
 import {
   ButtonFavorite,
   ButtonMore,
@@ -13,42 +12,17 @@ import {
   CarsTitle,
   InfoItem,
   InfoList,
-  LoadMoreButton,
-  MoreButtonWrap,
   TitleCont,
-} from './CarList.styled';
-import { CloseModalBtn } from './Modal/Modal.styled';
-export const CarList = () => {
-  const [cars, setCars] = useState([]);
-  const [page, setPage] = useState(1);
-  const [moreData, setMoreData] = useState(true);
-  const [selectedCar, setSelectedCar] = useState(null);
+} from '../CardList/CarList.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+
+import activeHeart from '../img/activeHeart.svg';
+export const FavoriteCarsList = () => {
+  const favoriteCars = useSelector(state => state.favoriteCars.favoriteCars);
   const [openModal, setOpenModal] = useState(false);
-
-  const fetchCars = async () => {
-    try {
-      let data;
-
-      data = await getCars(page, 12);
-
-      if (page === 1) {
-        setCars(data);
-      } else {
-        setCars(prevCars => [...prevCars, ...data]);
-      }
-
-      setMoreData(data.length > 0);
-    } catch (error) {
-      console.error('Error fetching cars:', error);
-    }
-  };
-  useEffect(() => {
-    fetchCars();
-    // eslint-disable-next-line
-  }, [page]);
-  const handleLoadMore = () => {
-    setPage(prevPage => prevPage + 1);
-  };
+  const [selectedCar, setSelectedCar] = useState(null);
+  const dispatch = useDispatch();
   const handleOpenModal = car => {
     setSelectedCar(car);
     setOpenModal(true);
@@ -57,10 +31,13 @@ export const CarList = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+  const handleAddToFavorites = car => {
+    dispatch(addToFavorites(car));
+  };
   return (
     <>
       <CarsList>
-        {cars.map(car => (
+        {favoriteCars.map(car => (
           <CarsItem key={car.id}>
             <CarsImage src={car.img} alt={car.make} />
             <TitleCont>
@@ -84,17 +61,12 @@ export const CarList = () => {
             <ButtonMore onClick={() => handleOpenModal(car)}>
               Learn more
             </ButtonMore>
-            <ButtonFavorite>
-              <img src={heart} alt="heart" />
+            <ButtonFavorite onClick={() => handleAddToFavorites(car)}>
+              <img src={activeHeart} alt="heart" />
             </ButtonFavorite>
           </CarsItem>
         ))}
       </CarsList>
-      <MoreButtonWrap>
-        {moreData && (
-          <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton>
-        )}
-      </MoreButtonWrap>
       <SharedModal
         openModal={openModal}
         onClose={handleCloseModal}
