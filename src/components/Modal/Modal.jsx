@@ -14,24 +14,14 @@ import {
   TitleSpan,
 } from './Modal.styled';
 import './Modal.css';
-
+//
 Modal.setAppElement('#root');
 
 // eslint-disable-next-line react/prop-types
-export function SharedModal({
-  children,
-  openModal,
-  closeModal,
-
-  maxWidth,
-  selectedCar,
-}) {
+export function SharedModal({ children, openModal, closeModal, selectedCar }) {
   const customStyles = {
     overlay: {
       backgroundColor: 'rgb(21, 21, 21, 0.75)',
-    },
-    content: {
-      maxWidth: maxWidth,
     },
   };
 
@@ -44,7 +34,7 @@ export function SharedModal({
           onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Sample Modal"
-          closeTimeoutMS={750}
+          closeTimeoutMS={350}
         >
           <CloseModalBtn onClick={closeModal}>✕</CloseModalBtn>
 

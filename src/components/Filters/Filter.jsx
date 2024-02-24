@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setFilter } from '../../redux/filterSlice';
 import makes from './makes.json';
 import prices from './prices.json';
 import {
@@ -14,12 +16,17 @@ import {
 } from './Filter.styled';
 
 export const Filter = () => {
+  const dispatch = useDispatch();
+  const handleMakeChange = e => {
+    dispatch(setFilter(e.target.value));
+  };
+
   return (
     <div>
       <FormStyles>
         <SpanStyles>
           <TextStyles>Car brend</TextStyles>
-          <SelectStyles>
+          <SelectStyles onChange={handleMakeChange}>
             {makes.map((car, idx) => (
               <option key={idx} value={car}>
                 {car}

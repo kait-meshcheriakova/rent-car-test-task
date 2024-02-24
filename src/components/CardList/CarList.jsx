@@ -27,16 +27,20 @@ export const CarList = () => {
   const [page, setPage] = useState(1);
   const [moreData, setMoreData] = useState(true);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedMake, setSelectedMake] = useState('');
   const dispatch = useDispatch();
 
   const favoriteCars = useSelector(state => state.favoriteCars.favoriteCars);
 
+  const filteredCars = cars.filter(car => car.make === selectedMake);
+
   const fetchCars = async () => {
     try {
-      let data;
+      setIsLoading(true);
 
-      data = await getCars(page, 12);
+      let data = await getCars(page, 12);
 
       if (page === 1) {
         setCars(data);
@@ -47,6 +51,8 @@ export const CarList = () => {
       setMoreData(data.length > 0);
     } catch (error) {
       console.error('Error fetching cars:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -60,10 +66,11 @@ export const CarList = () => {
     setSelectedCar(car);
     setOpenModal(true);
   };
-
+  // ////////////////////////////////////////
   const handleCloseModal = () => {
-    setOpenModal(false);
+    setOpenModal(prev => !prev);
   };
+
   const handleAddToFavorites = car => {
     dispatch(addToFavorites(car));
   };
@@ -108,13 +115,13 @@ export const CarList = () => {
         ))}
       </CarsList>
       <MoreButtonWrap>
-        {moreData && (
+        {moreData && !isLoading && (
           <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton>
         )}
       </MoreButtonWrap>
       <SharedModal
         openModal={openModal}
-        onClose={handleCloseModal}
+        closeModal={handleCloseModal}
         selectedCar={selectedCar}
       >
         <CloseModalBtn onClick={handleCloseModal}></CloseModalBtn>
