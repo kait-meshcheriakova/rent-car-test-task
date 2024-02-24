@@ -29,12 +29,12 @@ export const CarList = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedMake, setSelectedMake] = useState('');
+  // const [selectedMake, setSelectedMake] = useState('');
   const dispatch = useDispatch();
 
   const favoriteCars = useSelector(state => state.favoriteCars.favoriteCars);
 
-  const filteredCars = cars.filter(car => car.make === selectedMake);
+  // const filteredCars = cars.filter(car => car.make === selectedMake);
 
   const fetchCars = async () => {
     try {
