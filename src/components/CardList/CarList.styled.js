@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const CarsList = styled.ul`
   margin-top: 50px;
@@ -115,23 +115,25 @@ export const MoreButtonWrap = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const LoadMoreButton = styled.button`
+export const LoadMoreButton = styled.a`
   margin-bottom: 50px;
-  color: #ffffff;
+  color: rgba(52, 112, 255, 1);
   font-size: 14px;
   font-weight: 600;
   line-height: calc(20 / 14);
-  border-radius: 12px;
+  // border-radius: 12px;
   border: none;
-  background: #3470ff;
+  // background: #3470ff;
   display: flex;
   width: 274px;
   height: 44px;
   padding: 12px 99px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+
   &:hover {
-    background-color: #0b44cd;
+    color: #0b44cd;
   }
 `;
 export const SvgHeart = styled.svg`
@@ -141,9 +143,5 @@ export const SvgHeart = styled.svg`
   right: 14px;
   cursor: pointer;
 
-  ${({ isFavorite }) =>
-    isFavorite &&
-    css`
-      fill: blue;
-    `}
+  }
 `;

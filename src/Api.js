@@ -14,10 +14,10 @@ export const getCars = async (page = 1, limit = 12) => {
 
 export const getFilterCars = async data => {
   const make = data.make;
-  const res = await axios.get('adverts', {
+  const response = await axios.get('advert', {
     params: {
       make,
     },
   });
-  return res.data;
+  return response.data;
 };

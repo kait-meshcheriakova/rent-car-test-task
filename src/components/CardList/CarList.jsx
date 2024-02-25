@@ -30,7 +30,7 @@ export const CarList = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  // const [selectedMake, setSelectedMake] = useState('');
+
   const makeFilter = useSelector(state => state.filter.make);
   const dispatch = useDispatch();
 
@@ -72,7 +72,7 @@ export const CarList = () => {
     setSelectedCar(car);
     setOpenModal(true);
   };
-  // ////////////////////////////////////////
+
   const handleCloseModal = () => {
     setOpenModal(prev => !prev);
   };
