@@ -14,7 +14,7 @@ import {
   TitleSpan,
 } from './Modal.styled';
 import './Modal.css';
-//
+import defaultImg from '../img/png-transparent-green-car-thumbnail.png';
 Modal.setAppElement('#root');
 
 // eslint-disable-next-line react/prop-types
@@ -39,7 +39,10 @@ export function SharedModal({ children, openModal, closeModal, selectedCar }) {
           <CloseModalBtn onClick={closeModal}>✕</CloseModalBtn>
 
           {children}
-          <ModalImage src={selectedCar.img} alt={selectedCar.make} />
+          <ModalImage
+            src={selectedCar.img || defaultImg}
+            alt={selectedCar.make}
+          />
           <ModalTitle>
             {selectedCar.make} <TitleSpan> {selectedCar.model}</TitleSpan>,{' '}
             <span>{selectedCar.year}</span>

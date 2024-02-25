@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/filterSlice';
 import makes from './makes.json';
@@ -16,27 +16,43 @@ import {
 } from './Filter.styled';
 
 export const Filter = () => {
+  const [selectedMake, setSelectedMake] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState('');
+  const handleSelectPriceChange = event => {
+    setSelectedPrice(event.target.value);
+  };
   const dispatch = useDispatch();
+
   const handleMakeChange = e => {
-    dispatch(setFilter(e.target.value));
+    setSelectedMake(e.target.value);
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const options = {
+      make: selectedMake,
+      rentalPrice: selectedPrice,
+    };
+
+    dispatch(setFilter(options));
+  };
   return (
     <div>
-      <FormStyles>
+      <FormStyles onSubmit={handleSubmit}>
         <SpanStyles>
           <TextStyles>Car brend</TextStyles>
-          <SelectStyles onChange={handleMakeChange}>
-            {makes.map((car, idx) => (
-              <option key={idx} value={car}>
-                {car}
+          <SelectStyles value={selectedMake} onChange={handleMakeChange}>
+            {makes.map((make, idx) => (
+              <option key={idx} value={make}>
+                {make}
               </option>
             ))}
           </SelectStyles>
         </SpanStyles>
         <SpanStyles>
           <TextStyles>Price / 1 hour</TextStyles>
-          <SelectStyles>
+          <SelectStyles onChange={handleSelectPriceChange}>
             to
             {prices.map((price, idx) => (
               <option key={idx} value={price}>

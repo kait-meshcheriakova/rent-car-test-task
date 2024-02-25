@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { SharedModal } from '../Modal/Modal';
-import { getCars } from 'Api';
+import { getCars, getFilterCars } from 'Api';
 import { addToFavorites } from '../../redux/carSlice';
 import heart from '../img/heart.svg';
 import activeHeart from '../img/activeHeart.svg';
+import defaultImg from '../img/png-transparent-green-car-thumbnail.png';
 import {
   ButtonFavorite,
   ButtonMore,
@@ -30,17 +31,21 @@ export const CarList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   // const [selectedMake, setSelectedMake] = useState('');
+  const makeFilter = useSelector(state => state.filter.make);
   const dispatch = useDispatch();
 
   const favoriteCars = useSelector(state => state.favoriteCars.favoriteCars);
-
-  // const filteredCars = cars.filter(car => car.make === selectedMake);
 
   const fetchCars = async () => {
     try {
       setIsLoading(true);
 
-      let data = await getCars(page, 12);
+      let data;
+      if (makeFilter) {
+        data = await getFilterCars({ make: makeFilter, page, limit: 12 });
+      } else {
+        data = await getCars(page, 12);
+      }
 
       if (page === 1) {
         setCars(data);
@@ -58,7 +63,8 @@ export const CarList = () => {
   useEffect(() => {
     fetchCars();
     // eslint-disable-next-line
-  }, [page]);
+  }, [page, makeFilter]);
+
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
   };
@@ -79,7 +85,7 @@ export const CarList = () => {
       <CarsList>
         {cars.map(car => (
           <CarsItem key={car.id}>
-            <CarsImage src={car.img} alt={car.make} />
+            <CarsImage src={car.img || defaultImg} alt={car.make} />
             <TitleCont>
               <CarsTitle>
                 {car.make} <CarModel> {car.model}</CarModel>,{' '}
