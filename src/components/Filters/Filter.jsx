@@ -27,6 +27,7 @@ export const Filter = () => {
   const dispatch = useDispatch();
 
   const handleMakeChange = selectedMake => {
+    setSelectedMake(selectedMake);
     dispatch(setFilter(selectedMake));
   };
 
@@ -40,7 +41,7 @@ export const Filter = () => {
             value={selectedMake}
             onChange={e => handleMakeChange(e.target.value)}
           >
-            <option value={setSelectedMake}>All</option>
+            <option value="">Enter the text</option>
             {makes.map((make, idx) => (
               <option key={idx} value={make}>
                 {make}
@@ -51,7 +52,7 @@ export const Filter = () => {
         <SpanStyles>
           <TextStyles>Price / 1 hour</TextStyles>
           <SelectStyles id="priceSelect">
-            to
+            <option value="">To $</option>
             {prices.map((price, idx) => (
               <option key={idx} value={price}>
                 {price}
@@ -81,7 +82,7 @@ export const Filter = () => {
           </DivMillage>
         </InputMillageWrapper>
 
-        <ButtonStyles type="submit">Search</ButtonStyles>
+        <ButtonStyles type="submit">Reset</ButtonStyles>
       </FormStyles>
     </div>
   );

@@ -121,7 +121,7 @@ export const CarList = () => {
         ))}
       </CarsList>
       <MoreButtonWrap>
-        {moreData && !isLoading && (
+        {cars.length > 11 && moreData && !isLoading && (
           <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton>
         )}
       </MoreButtonWrap>

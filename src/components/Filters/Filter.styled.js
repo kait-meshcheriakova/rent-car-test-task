@@ -85,6 +85,8 @@ export const ButtonStyles = styled.button`
   height: 48px;
   background: #3470ff;
   color: white;
+  justify-content: center;
+  align-items: center;
   border: none;
   &:hover {
     background-color: #0b44cd;

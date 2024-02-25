@@ -121,9 +121,7 @@ export const LoadMoreButton = styled.a`
   font-size: 14px;
   font-weight: 600;
   line-height: calc(20 / 14);
-  // border-radius: 12px;
   border: none;
-  // background: #3470ff;
   display: flex;
   width: 274px;
   height: 44px;
@@ -142,6 +140,4 @@ export const SvgHeart = styled.svg`
   top: 14px;
   right: 14px;
   cursor: pointer;
-
-  }
 `;

@@ -10,7 +10,7 @@ const Layout = () => {
           <span role="img" aria-label="computer icon">
             💻
           </span>{' '}
-          Rental Car
+          Rentalcars.com
         </Logo>
         <nav>
           <Link to="/">Home</Link>
